@@ -27,30 +27,33 @@ const Footer = () => {
           {/* Logo and Description Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Image 
-                src={logo} 
-                alt="BasaFinder Logo" 
-                width={60} 
-                height={48}
-                className="hover:scale-105 transition-transform" 
+              <Image
+                src={logo}
+                alt="BasaFinder Logo"
+                
+                height={70}
+                className="hover:scale-105 transition-transform"
               />
-              <h1 className="text-3xl font-bold text-white">BasaFinder</h1>
+              
             </div>
             <p className="text-white/90 text-sm max-w-md">
               Connecting landlords and tenants seamlessly. Discover, rent, and
-              manage properties with ease. Your ideal rental journey starts here.
+              manage properties with ease. Your ideal rental journey starts
+              here.
             </p>
           </div>
 
           {/* Navigation Links Section */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-white">Quick Links</h2>
+            <h2 className="text-xl font-semibold font-heading text-white">
+              Quick Links
+            </h2>
             <nav>
               <ul className="space-y-3">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link 
-                      href={link.href} 
+                    <Link
+                      href={link.href}
                       className="text-white/80 hover:text-white transition-colors text-sm"
                     >
                       {link.label}
@@ -63,7 +66,9 @@ const Footer = () => {
 
           {/* Social Links and Copyright Section */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-white">Connect With Us</h2>
+            <h2 className="text-xl font-semibold font-heading text-white">
+              Connect With Us
+            </h2>
             <div className="flex gap-4">
               {socialLinks.map(({ href, icon: Icon }, index) => (
                 <Link

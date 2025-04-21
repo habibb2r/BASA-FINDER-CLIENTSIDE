@@ -56,7 +56,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header 
+    <header
       className={`
         sticky top-0 z-20 w-full
         backdrop-blur-md bg-white/80 
@@ -67,16 +67,18 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo Section */}
-        <Link 
-          href="/" 
-          className="flex items-center gap-2 group"
+        <Link
+          href="/"
+          className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
-          <Image 
-            src={logo} 
-            alt="BasaFinder Logo" 
-            height={70} 
-            className="" 
+          <Image
+            src={logo}
+            alt="BasaFinder Logo"
+        
+            height={70}
+            className=""
           />
+          
         </Link>
 
         {/* Desktop Navigation */}
@@ -88,9 +90,10 @@ export default function Navbar() {
               className={`
                 relative py-1 text-sm lg:text-base font-medium
                 transition-colors duration-200
-                ${pathname === link.href 
-                  ? "text-blue-600 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-blue-600 after:rounded-full" 
-                  : "text-gray-600 hover:text-blue-600"
+                ${
+                  pathname === link.href
+                    ? "text-blue-600 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-blue-600 after:rounded-full"
+                    : "text-gray-600 hover:text-blue-600"
                 }
               `}
             >
@@ -101,8 +104,8 @@ export default function Navbar() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="rounded-full p-0 h-10 w-10 ring-2 ring-gray-100 hover:ring-blue-200 transition-all"
                 >
                   <Avatar className="h-9 w-9">
@@ -128,7 +131,10 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href={`/${user.role}s/dashboard`} className="flex w-full cursor-pointer">
+                  <Link
+                    href={`/${user.role}s/dashboard`}
+                    className="flex w-full cursor-pointer"
+                  >
                     <LayoutDashboardIcon className="mr-2 h-4 w-4" />
                     Dashboard
                   </Link>
@@ -145,9 +151,7 @@ export default function Navbar() {
             </DropdownMenu>
           ) : (
             <Link href="/login">
-              <Button 
-                className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-all duration-300"
-              >
+              <Button className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-all duration-300">
                 Login
               </Button>
             </Link>
@@ -158,33 +162,37 @@ export default function Navbar() {
         <div className="md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className="h-9 w-9 p-0 hover:bg-blue-50"
               >
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent 
-              side="left" 
+            <SheetContent
+              side="left"
               className="w-[280px] backdrop-blur-lg bg-white/95"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between py-4">
-                  <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                    <Image src={logo} alt="Logo"  height={50} />
+                  <Link
+                    href="/"
+                    className="flex items-center gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Image src={logo} alt="Logo" height={50} />
                   </Link>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-8 w-8 p-0" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
                     onClick={() => setIsOpen(false)}
                   >
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                
+
                 <nav className="flex flex-col gap-1 mt-4">
                   {navLinks.map((link) => (
                     <Link
@@ -194,9 +202,10 @@ export default function Navbar() {
                       className={`
                         px-4 py-2 rounded-lg text-sm font-medium
                         transition-colors duration-200
-                        ${pathname === link.href 
-                          ? "bg-blue-50 text-blue-600" 
-                          : "text-gray-600 hover:bg-gray-50 hover:text-blue-600"
+                        ${
+                          pathname === link.href
+                            ? "bg-blue-50 text-blue-600"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-blue-600"
                         }
                       `}
                     >
@@ -212,16 +221,22 @@ export default function Navbar() {
                         <div className="flex items-center gap-3">
                           <Avatar className="h-10 w-10">
                             <AvatarImage src="https://i.postimg.cc/QC0n0Jw6/user.jpg" />
-                            <AvatarFallback>{user.name?.charAt(0) || "U"}</AvatarFallback>
+                            <AvatarFallback>
+                              {user.name?.charAt(0) || "U"}
+                            </AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col">
-                            <span className="text-sm font-medium">{user.name}</span>
-                            <span className="text-xs text-gray-500">{user.email}</span>
+                            <span className="text-sm font-medium">
+                              {user.name}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {user.email}
+                            </span>
                           </div>
                         </div>
                       </div>
-                      <Button 
-                        variant="destructive" 
+                      <Button
+                        variant="destructive"
                         className="w-full"
                         onClick={() => {
                           handleLogOut();
@@ -235,7 +250,7 @@ export default function Navbar() {
                   ) : (
                     <div className="px-4">
                       <Link href="/login" className="w-full">
-                        <Button 
+                        <Button
                           className="w-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-500"
                           onClick={() => setIsOpen(false)}
                         >

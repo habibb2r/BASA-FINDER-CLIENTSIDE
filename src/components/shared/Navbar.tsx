@@ -74,13 +74,9 @@ export default function Navbar() {
           <Image 
             src={logo} 
             alt="BasaFinder Logo" 
-            width={40} 
-            height={32} 
-            className="w-8 h-auto sm:w-10 md:w-12 transition-transform group-hover:scale-105" 
+            height={70} 
+            className="" 
           />
-          <span className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-            BasaFinder
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -177,8 +173,7 @@ export default function Navbar() {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between py-4">
                   <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                    <Image src={logo} alt="Logo" width={32} height={32} />
-                    <span className="font-bold text-xl">BasaFinder</span>
+                    <Image src={logo} alt="Logo"  height={50} />
                   </Link>
                   <Button 
                     variant="ghost" 

@@ -7,9 +7,8 @@ export default function Logo() {
       <Image
         src={logo}
         alt="BasaFinder Logo"
-        width={40}
-        height={32}
-        className="w-8 h-auto sm:w-10 md:w-12"
+        height={50}
+        className=""
       />
     </div>
   );

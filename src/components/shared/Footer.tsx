@@ -21,51 +21,69 @@ const Footer = () => {
   ];
 
   return (
-    // <footer className="bg-white border-t border-gray-200 py-12">
-    <footer className="bg-gradient-to-r from-blue-400 to-cyan-200 border-t border-gray-200 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Logo and Intro */}
-        <div className="flex flex-col items-center text-center mb-10">
-          <div className="flex items-center gap-2">
-            <Image src={logo} alt="BasaFinder Logo" width={50} height={40} />
-            <h1 className="text-2xl font-bold">BasaFinder</h1>
+    <footer className="bg-gradient-to-br from-blue-500 via-blue-400 to-cyan-300">
+      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {/* Logo and Description Section */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Image 
+                src={logo} 
+                alt="BasaFinder Logo" 
+                width={60} 
+                height={48}
+                className="hover:scale-105 transition-transform" 
+              />
+              <h1 className="text-3xl font-bold text-white">BasaFinder</h1>
+            </div>
+            <p className="text-white/90 text-sm max-w-md">
+              Connecting landlords and tenants seamlessly. Discover, rent, and
+              manage properties with ease. Your ideal rental journey starts here.
+            </p>
           </div>
-          <p className=" mt-3 max-w-md text-sm">
-            Connecting landlords and tenants seamlessly. Discover, rent, and
-            manage properties with ease. Your ideal rental journey starts here.
+
+          {/* Navigation Links Section */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Quick Links</h2>
+            <nav>
+              <ul className="space-y-3">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link 
+                      href={link.href} 
+                      className="text-white/80 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          {/* Social Links and Copyright Section */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Connect With Us</h2>
+            <div className="flex gap-4">
+              {socialLinks.map(({ href, icon: Icon }, index) => (
+                <Link
+                  href={href}
+                  key={index}
+                  className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                >
+                  <Icon className="w-5 h-5 text-white" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright Section */}
+        <div className="border-t border-white/10 mt-12 pt-8">
+          <p className="text-center text-sm text-white/80">
+            © {new Date().getFullYear()} BasaFinder. All Rights Reserved.
           </p>
         </div>
-
-        {/* Navigation Links */}
-        <nav className="mb-8">
-          <ul className="flex flex-wrap justify-center gap-6 text-sm text-gray-800 font-medium">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="hover:text-blue-500 transition-all">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Social Media Icons */}
-        <div className="flex justify-center space-x-6 mb-8">
-          {socialLinks.map(({ href, icon: Icon }, index) => (
-            <Link
-              href={href}
-              key={index}
-              className="text-gray-600 hover:text-blue-500 transition-all"
-            >
-              <Icon className="w-5 h-5" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Copyright */}
-        <p className="text-xs text-center">
-          © {new Date().getFullYear()} BasaFinder. All Rights Reserved.
-        </p>
       </div>
     </footer>
   );

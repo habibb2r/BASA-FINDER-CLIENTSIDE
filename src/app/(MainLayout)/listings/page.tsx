@@ -4,7 +4,13 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import ListingCard from "@/components/ui/core/ListingCard";
 import NMContainer from "@/components/ui/core/NMContainer";
 import { getAllListings } from "@/services/Listings";
@@ -17,39 +23,34 @@ interface RentalListingsProps {
 }
 
 const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
-  // State for search filters
   const [location, setLocation] = useState("");
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [bedrooms, setBedrooms] = useState("any");
   const [filteredListings, setFilteredListings] = useState<ListingWithId[]>(initialListings);
 
-  // Update filtered listings when initial listings change
   useEffect(() => {
     setFilteredListings(initialListings);
   }, [initialListings]);
 
-  // Handle search filter changes
   const handleSearch = () => {
-    const filtered = initialListings.filter((listing: ListingWithId) => {
-      // Filter by location (case insensitive)
-      const locationMatch = location === "" || 
+    const filtered = initialListings.filter((listing) => {
+      const locationMatch =
+        location === "" ||
         listing.location.toLowerCase().includes(location.toLowerCase());
-      
-      // Filter by price range
-      const priceMatch = listing.rentAmount >= priceRange[0] && 
+
+      const priceMatch =
+        listing.rentAmount >= priceRange[0] &&
         listing.rentAmount <= priceRange[1];
-      
-      // Filter by bedrooms
-      const bedroomsMatch = bedrooms === "any" || 
-        listing.bedrooms.toString() === bedrooms;
-      
+
+      const bedroomsMatch =
+        bedrooms === "any" || listing.bedrooms.toString() === bedrooms;
+
       return locationMatch && priceMatch && bedroomsMatch;
     });
-    
+
     setFilteredListings(filtered);
   };
 
-  // Reset all filters
   const handleReset = () => {
     setLocation("");
     setPriceRange([0, 50000]);
@@ -59,43 +60,43 @@ const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
 
   return (
     <NMContainer className="my-20">
-      {/* Search Section */}
-      <div className="bg-white p-6 rounded-xl shadow-md mb-10">
-        <h3 className="text-xl font-semibold mb-4 text-center">Search Rental Properties</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Filter Section */}
+      <div className="bg-white rounded-2xl shadow-md p-8 mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-center">Filter Rental Properties</h2>
+        <div className="grid gap-6 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
+          {/* Location Input */}
           <div>
-            <label className="block text-sm font-medium mb-1">Location</label>
+            <label className="block text-sm font-medium mb-2">Location</label>
             <Input
-              placeholder="Enter location..."
+              placeholder="e.g., Dhaka, Chattogram..."
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full"
             />
           </div>
-          
+
+          {/* Price Range */}
           <div>
-            <label className="block text-sm font-medium mb-1">Price Range</label>
-            <div className="px-2">
+            <label className="block text-sm font-medium mb-2">Price Range</label>
+            <div className="px-1">
               <Slider
-                defaultValue={[0, 50000]}
                 min={0}
                 max={50000}
                 step={1000}
                 value={priceRange}
                 onValueChange={(value) => setPriceRange(value)}
-                className="mt-2"
               />
-              <div className="flex justify-between mt-2 text-sm text-gray-600">
+              <div className="flex justify-between mt-2 text-sm text-muted-foreground">
                 <span>৳{priceRange[0].toLocaleString()}</span>
                 <span>৳{priceRange[1].toLocaleString()}</span>
               </div>
             </div>
           </div>
-          
+
+          {/* Bedrooms Select */}
           <div>
-            <label className="block text-sm font-medium mb-1">Bedrooms</label>
-            <Select value={bedrooms} onValueChange={(value) => setBedrooms(value)}>
-              <SelectTrigger className="w-full">
+            <label className="block text-sm font-medium mb-2">Bedrooms</label>
+            <Select value={bedrooms} onValueChange={setBedrooms}>
+              <SelectTrigger>
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
@@ -108,20 +109,13 @@ const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
               </SelectContent>
             </Select>
           </div>
-          
-          {/* <div className="flex md:flex-row flex-col items-end gap-2"> */}
-          <div className="flex flex-col gap-2">
-            <Button 
-              onClick={handleSearch} 
-              className="bg-blue-600 text-white hover:bg-blue-700 flex-1"
-            >
+
+          {/* Action Buttons */}
+          <div className="flex flex-col justify-end gap-3">
+            <Button onClick={handleSearch} className="bg-primary text-white hover:bg-primary/90">
               Search
             </Button>
-            <Button 
-              onClick={handleReset} 
-              variant="outline" 
-              className="border-blue-300 text-blue-600"
-            >
+            <Button onClick={handleReset} variant="outline" className="text-primary border-primary">
               Reset
             </Button>
           </div>
@@ -129,19 +123,14 @@ const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
       </div>
 
       {/* Listings Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-center mb-6">
         <h2 className="text-3xl font-bold">All Listings</h2>
-        {/* <Link href="/listings">
-          <Button variant="outline" className="rounded-full">
-            View All
-          </Button>
-        </Link> */}
       </div>
 
       {/* Listings Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredListings.length > 0 ? (
-          filteredListings.map((listing: ListingWithId, idx: number) => (
+          filteredListings.map((listing, idx) => (
             <ListingCard
               key={idx}
               listing={{
@@ -156,8 +145,10 @@ const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
             />
           ))
         ) : (
-          <div className="col-span-4 text-center py-10">
-            <p className="text-lg text-gray-500">No listings match your search criteria.</p>
+          <div className="col-span-full text-center py-10">
+            <p className="text-lg text-muted-foreground">
+              No listings match your search criteria.
+            </p>
           </div>
         )}
       </div>
@@ -165,11 +156,9 @@ const RentalListings: React.FC<RentalListingsProps> = ({ initialListings }) => {
   );
 };
 
-// This exports the page component with data fetching
 export default function RentalListingsPage() {
   const [initialListings, setInitialListings] = useState<ListingWithId[]>([]);
 
-  // Use useEffect to fetch data on the client side
   useEffect(() => {
     async function fetchData() {
       try {
@@ -180,7 +169,7 @@ export default function RentalListingsPage() {
         setInitialListings([]);
       }
     }
-    
+
     fetchData();
   }, []);
 

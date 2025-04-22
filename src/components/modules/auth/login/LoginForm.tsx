@@ -41,16 +41,6 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = form;
 
-  // const handleReCaptcha = async (value: string | null) => {
-  //   try {
-  //     const res = await reCaptchaTokenVerification(value!);
-  //     if (res?.success) {
-  //       setReCaptchaStatus(true);
-  //     }
-  //   } catch (err: any) {
-  //     console.error(err);
-  //   }
-  // };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -79,13 +69,9 @@ export default function LoginForm() {
           <Image
             src={logo}
             alt="BasaFinder Logo"
-            width={40}
-            height={32}
-            className="w-8 h-auto sm:w-10 md:w-12"
+            height={70}
+            
           />
-          <span className="text-lg sm:text-xl md:text-2xl font-bold">
-            BasaFinder
-          </span>
         </Link>
 
         <div>

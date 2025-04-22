@@ -21,7 +21,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu, LogOut, User, LayoutDashboardIcon, X } from "lucide-react";
 import logo from "@/assets/logo.png";
-import { DialogTitle } from "@radix-ui/react-dialog";
+
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -74,9 +74,8 @@ export default function Navbar() {
           <Image
             src={logo}
             alt="BasaFinder Logo"
-        
             height={70}
-            className=""
+           
           />
           
         </Link>
@@ -109,7 +108,7 @@ export default function Navbar() {
                   className="rounded-full p-0 h-10 w-10 ring-2 ring-gray-100 hover:ring-blue-200 transition-all"
                 >
                   <Avatar className="h-9 w-9">
-                    <AvatarImage src="https://i.postimg.cc/QC0n0Jw6/user.jpg" />
+                    <AvatarImage src={user.photoURL? user.photoURL : 'https://res.cloudinary.com/dairs3nkn/image/upload/f_auto,q_auto/v1/habibb2r/b7jz4araesw7ori6otrg'} />
                     <AvatarFallback className="bg-blue-100 text-blue-600">
                       {user.name?.charAt(0) || "U"}
                     </AvatarFallback>
@@ -220,7 +219,7 @@ export default function Navbar() {
                       <div className="px-4 py-3 bg-gray-50 rounded-lg">
                         <div className="flex items-center gap-3">
                           <Avatar className="h-10 w-10">
-                            <AvatarImage src="https://i.postimg.cc/QC0n0Jw6/user.jpg" />
+                            <AvatarImage src={user.photoURL? user.photoURL : 'https://res.cloudinary.com/dairs3nkn/image/upload/f_auto,q_auto/v1/habibb2r/b7jz4araesw7ori6otrg'} />
                             <AvatarFallback>
                               {user.name?.charAt(0) || "U"}
                             </AvatarFallback>

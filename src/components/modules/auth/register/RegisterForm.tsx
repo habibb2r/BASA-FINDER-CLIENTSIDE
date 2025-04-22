@@ -72,13 +72,9 @@ export default function RegisterForm() {
           <Image
             src={logo}
             alt="BasaFinder Logo"
-            width={40}
-            height={32}
-            className="w-8 h-auto sm:w-10 md:w-12"
+            height={70}
           />
-          <span className="text-lg sm:text-xl md:text-2xl font-bold">
-            BasaFinder
-          </span>
+         
         </Link>
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Register

@@ -12,18 +12,22 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function FilterSidebar() {
   const [price, setPrice] = useState([0]);
-
   const [isLoading, setIsLoading] = useState(false);
-
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const [{ data: categoriesData }, { data: brandsData }] =
-          await Promise.all([getAllCategories(), getAllBrands()]);
+        const [{ data: categoriesData }, { data: brandsData }] = await Promise.all([
+          getAllCategories(),
+          getAllBrands(),
+        ]);
         setCategories(categoriesData);
         setBrands(brandsData);
       } catch (error: any) {
@@ -37,42 +41,31 @@ export default function FilterSidebar() {
     fetchData();
   }, []);
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   const handleSearchQuery = (query: string, value: string | number) => {
     const params = new URLSearchParams(searchParams.toString());
-
     params.set(query, value.toString());
-
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (
-    <div className="p-6  bg-white rounded-lg">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">Filter</h2>
+    <aside className="p-6 bg-white rounded-2xl shadow-md space-y-8 w-full">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-800">Filters</h2>
         {searchParams.toString().length > 0 && (
           <Button
-            onClick={() => {
-              router.push(`${pathname}`, {
-                scroll: false,
-              });
-            }}
+            onClick={() => router.push(`${pathname}`, { scroll: false })}
             size="sm"
-            className="bg-black hover:bg-gray-700 ml-5"
+            className="bg-red-500 hover:bg-red-600 text-white"
           >
-            Clear Filters
+            Clear
           </Button>
         )}
       </div>
-      {/* Filter by Price */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Price</h2>
-        <div className="flex items-center justify-between text-sm mb-2">
+
+      {/* Price Filter */}
+      <section>
+        <h3 className="text-lg font-semibold mb-2">Price</h3>
+        <div className="text-sm flex justify-between text-gray-600 mb-2">
           <span>$0</span>
           <span>$500000</span>
         </div>
@@ -83,78 +76,77 @@ export default function FilterSidebar() {
             setPrice(value);
             handleSearchQuery("price", value[0]);
           }}
-          className="w-full"
         />
-        <p className="text-sm mt-2">Selected Price: ${price[0]}</p>
-      </div>
-      {/* Product Types */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Product Category</h2>
+        <p className="text-sm text-gray-500 mt-1">Selected: ${price[0]}</p>
+      </section>
+
+      {/* Categories */}
+      <section>
+        <h3 className="text-lg font-semibold mb-2">Product Category</h3>
         {!isLoading && (
-          <RadioGroup className="space-y-2">
-            {categories?.map((category: { _id: string; name: string }) => (
-              <div key={category._id} className="flex items-center space-x-2">
+          <RadioGroup className="space-y-3">
+            {categories.map((category: { _id: string; name: string }) => (
+              <div key={category._id} className="flex items-center gap-2">
                 <RadioGroupItem
-                  onClick={() => handleSearchQuery("category", category._id)}
-                  value={category._id}
                   id={category._id}
+                  value={category._id}
+                  onClick={() => handleSearchQuery("category", category._id)}
                 />
-                <Label
-                  htmlFor={category._id}
-                  className="text-gray-500 font-light"
-                >
+                <Label htmlFor={category._id} className="text-gray-600">
                   {category.name}
                 </Label>
               </div>
             ))}
           </RadioGroup>
         )}
-      </div>
+      </section>
+
       {/* Brands */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Brands</h2>
+      <section>
+        <h3 className="text-lg font-semibold mb-2">Brands</h3>
         {!isLoading && (
-          <RadioGroup className="space-y-2">
-            {brands?.map((brand: { _id: string; name: string }) => (
-              <div key={brand._id} className="flex items-center space-x-2">
+          <RadioGroup className="space-y-3">
+            {brands.map((brand: { _id: string; name: string }) => (
+              <div key={brand._id} className="flex items-center gap-2">
                 <RadioGroupItem
-                  onClick={() => handleSearchQuery("brand", brand._id)}
-                  value={brand._id}
                   id={brand._id}
+                  value={brand._id}
+                  onClick={() => handleSearchQuery("brand", brand._id)}
                 />
-                <Label htmlFor={brand._id} className="text-gray-500 font-light">
+                <Label htmlFor={brand._id} className="text-gray-600">
                   {brand.name}
                 </Label>
               </div>
             ))}
           </RadioGroup>
         )}
-      </div>
+      </section>
+
       {/* Rating */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Rating</h2>
+      <section>
+        <h3 className="text-lg font-semibold mb-2">Rating</h3>
         <RadioGroup className="space-y-3">
           {[5, 4, 3, 2, 1].map((rating) => (
-            <div key={rating} className="flex items-center space-x-2">
+            <div key={rating} className="flex items-center gap-2">
               <RadioGroupItem
-                onClick={() => handleSearchQuery("rating", rating)}
-                value={`${rating}`}
                 id={`rating-${rating}`}
+                value={`${rating}`}
+                onClick={() => handleSearchQuery("rating", rating)}
               />
-              <Label htmlFor={`rating-${rating}`} className="flex items-center">
+              <Label htmlFor={`rating-${rating}`} className="flex gap-1 items-center">
                 {Array.from({ length: 5 }, (_, i) => (
                   <Star
-                    size={18}
                     key={i}
-                    fill={i < rating ? "orange" : "lightgray"}
-                    stroke={i < rating ? "orange" : "lightgray"}
+                    size={18}
+                    fill={i < rating ? "#fbbf24" : "lightgray"}
+                    stroke={i < rating ? "#fbbf24" : "lightgray"}
                   />
                 ))}
               </Label>
             </div>
           ))}
         </RadioGroup>
-      </div>
-    </div>
+      </section>
+    </aside>
   );
 }

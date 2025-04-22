@@ -1,5 +1,6 @@
 
 
+import LoginForm from "@/components/modules/auth/login/LoginForm";
 import { Suspense } from "react";
 
 

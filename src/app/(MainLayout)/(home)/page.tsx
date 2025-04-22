@@ -9,10 +9,6 @@ const HomePage = async () => {
       <HeroSection />
       <RentalListings />
       <Testimonials />
-      {/* <Category />
-      <FeaturedProducts />
-      <FlashSale />
-      <TopBrands /> */}
     </div>
   );
 };

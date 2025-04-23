@@ -278,30 +278,41 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   // Select the appropriate navigation data
-  const data = isAdmin ? adminNavData : isLandlord ? landlordNavData : tenantNavData;
+  const data = isAdmin
+    ? adminNavData
+    : isLandlord
+    ? landlordNavData
+    : tenantNavData;
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-sidebar-border/10 bg-white/80 backdrop-blur-sm"
+      {...props}
+    >
+      <SidebarHeader className="border-b border-sidebar-border/10 bg-gradient-to-br from-white to-blue-50/50 p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton
+              size="lg"
+              asChild
+              className="hover:scale-105 hover:shadow-lg transition-all duration-300 rounded-xl"
+            >
               <Link href="/">
                 <div className="flex items-center justify-center">
                   <Logo />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <h2 className="font-bold text-xl">Basa Finder</h2>
                 </div>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+
+      <SidebarContent className="bg-gradient-to-b from-transparent via-blue-50/30 to-transparent">
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+
+      <SidebarFooter className="border-t border-sidebar-border/10 bg-gradient-to-t from-white to-blue-50/50 p-4">
         <NavUser />
       </SidebarFooter>
     </Sidebar>

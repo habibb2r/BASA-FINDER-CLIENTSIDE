@@ -81,7 +81,6 @@ const DeleteListings = () => {
                         variant="outline"
                         size="sm"
                         onClick={() =>
-                          //   router.push(`/landlords/listings/edit/${listing._id}`)
                           router.push(
                             `/admin/update-listing/edit/${listing._id}`
                           )

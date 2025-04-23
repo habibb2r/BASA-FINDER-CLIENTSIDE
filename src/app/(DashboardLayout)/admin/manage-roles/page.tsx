@@ -158,32 +158,6 @@ const UsersRoleManagementPage = () => {
                     </Badge>
                   </TableCell>
 
-                  {/* <TableCell>
-                    <div className="flex gap-2">
-                      <Button
-                        // variant="outline"
-                        variant="destructive"
-                        size="sm"
-                        onClick={() =>
-                          handleToggleUserStatus(user._id, user.isBlocked)
-                        }
-                        disabled={
-                          user.role === "admin" || actionLoading[user._id]
-                        }
-                      >
-                        {actionLoading[user._id] ? (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : user.isBlocked ? (
-                          <Unlock className="mr-2 h-4 w-4" />
-                        ) : (
-                          <Lock className="mr-2 h-4 w-4" />
-                        )}
-                        {user.isBlocked ? "Activate" : "Block"}
-                      </Button>
-                     
-                    </div>
-                  </TableCell>
-                   */}
                 </TableRow>
               ))}
             </TableBody>

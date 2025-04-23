@@ -108,24 +108,10 @@ const ReviewListings = () => {
                     {landlords[listing.landlordId]?.email || "Loading..."}
                   </TableCell>
                   <TableCell>
-                    {landlords[listing.landlordId]?.phone_number || "N/A"}
+                    {landlords[listing.landlordId]?.phone || "N/A"}
                   </TableCell>
 
-                  {/* <TableCell>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() =>
-                          router.push(`/admin/update-listing/edit/${listing._id}`)
-                        }
-                      >
-                        <Edit size={16} className="mr-1" />
-                        Edit
-                      </Button>
-                    </div>
-                  </TableCell>
-                   */}
+                
                 </TableRow>
               ))}
             </TableBody>

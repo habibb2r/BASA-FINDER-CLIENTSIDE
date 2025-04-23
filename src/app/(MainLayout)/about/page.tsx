@@ -15,19 +15,19 @@ const teamMembers = [
   {
     name: "Mohammad Rahman",
     role: "Founder & CEO",
-    image: "https://i.postimg.cc/XJpJ8S2K/man.jpg",
+    image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420640/habibb2r/stjknpjpivlxqajuv3ui.jpg",
     bio: "Property tech innovator with extensive experience in Bangladesh's real estate market and digital solutions.",
   },
   {
     name: "Aisha Khan",
     role: "Head of Operations",
-    image: "https://i.postimg.cc/XNBqBWB4/woman.jpg",
+    image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420627/habibb2r/obblhx76oc2yrioy0biq.jpg",
     bio: "Operations expert focused on creating seamless rental experiences and property management solutions.",
   },
   {
     name: "Kamal Hassan",
     role: "Chief Marketing Officer",
-    image: "https://i.postimg.cc/XJpJ8S2K/man.jpg",
+    image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420711/habibb2r/v0ngqliesrmhzajh0m7c.jpg",
     bio: "Digital marketing strategist dedicated to connecting property owners with ideal tenants across Bangladesh.",
   },
 ];

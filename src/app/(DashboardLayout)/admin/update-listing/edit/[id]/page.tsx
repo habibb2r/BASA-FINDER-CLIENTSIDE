@@ -131,11 +131,11 @@ const EditListing = () => {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "pxuxm8bg");
-        formData.append("cloud_name", "dd3w1s9gq");
+        formData.append("upload_preset", "cfzfnkte");
+        formData.append("cloud_name", "dairs3nkn");
 
         const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dd3w1s9gq/image/upload",
+          "https://api.cloudinary.com/v1_1/dairs3nkn/image/upload",
           {
             method: "POST",
             body: formData,
@@ -311,49 +311,6 @@ const EditListing = () => {
             )}
           </div>
 
-          {/* Amenities */}
-          {/* <div>
-            <Label>Amenities</Label>
-            <div className="mt-2">
-              <div className="flex flex-wrap gap-2">
-                {amenitiesOptions.map((amenity) => (
-                  <Button
-                    key={amenity.id}
-                    type="button"
-                    variant={
-                      listingData.amenities.includes(amenity.id)
-                        ? "default"
-                        : "outline"
-                    }
-                    size="sm"
-                    onClick={() => {
-                      setListingData((prev) => {
-                        const currentAmenities = prev.amenities
-                          .split(",")
-                          .map((a) => a.trim())
-                          .filter(Boolean);
-                        const updatedAmenities = currentAmenities.includes(
-                          amenity.id
-                        )
-                          ? currentAmenities.filter((a) => a !== amenity.id)
-                          : [...currentAmenities, amenity.id];
-
-                        return {
-                          ...prev,
-                          amenities: updatedAmenities.join(", "),
-                        };
-                      });
-                    }}
-                  >
-                    {amenity.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-            {errors.amenities && (
-              <p className="text-red-500 text-xs mt-1">{errors.amenities}</p>
-            )}
-          </div> */}
           <div>
             <Label>Amenities</Label>
             <div className="mt-2">

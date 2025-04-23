@@ -14,7 +14,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 // import { loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
-import { loginUser} from "@/services/AuthService";
+import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
@@ -41,7 +41,6 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = form;
 
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await loginUser(data);
@@ -62,99 +61,127 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="bg-blue-300 border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-      <div className="flex items-center flex-col space-x-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src={logo}
-            alt="BasaFinder Logo"
-            height={70}
-            
-          />
-        </Link>
-
-        <div>
-          <h1 className="text-xl font-semibold text-center">Login</h1>
-          <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
-        </div>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" {...field} value={field.value || ""} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Password Field with Visibility Toggle */}
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                      {...field}
-                      type={showPassword ? "text" : "password"}
-                      value={field.value || ""}
-                    />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="absolute inset-y-0 right-2 flex items-center"
-                      onClick={() => setShowPassword((prev) => !prev)}
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* <div className="flex mt-3 w-full">
-            <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY!}
-              onChange={handleReCaptcha}
-              className="mx-auto"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+      <div className="bg-white rounded-2xl shadow-xl flex-grow max-w-md w-full p-8 space-y-6 transform transition-all hover:scale-[1.01]">
+        <div className="flex flex-col items-center space-y-4">
+          <Link href="/" className="transition-transform hover:scale-105">
+            <Image
+              src={logo}
+              alt="BasaFinder Logo"
+              height={80}
+              className="drop-shadow-md"
             />
-          </div> */}
+          </Link>
 
-          <Button
-            // disabled={!reCaptchaStatus}
-            type="submit"
-            className="mt-5 w-full"
-          >
-            {isSubmitting ? "Logging...." : "Login"}
-          </Button>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-800">Welcome Back!</h1>
+            <p className="text-gray-600 mt-1">Login to access your account</p>
+          </div>
+        </div>
 
-        </form>
-      </Form>
-      <p className="text-sm text-gray-600 text-center my-3">
-        Do not have an account?{" "}
-        <Link href="/register" className="text-primary">
-          Register
-        </Link>
-      </p>
-      <p className="text-sm text-gray-600 text-center my-3">
-        Go to{" "}
-        <Link href="/" className="text-primary">
-          Home
-        </Link>
-      </p>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-700">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      {...field}
+                      value={field.value || ""}
+                      className="h-11 focus:ring-2 focus:ring-blue-100"
+                      placeholder="Enter your email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-700">Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        value={field.value || ""}
+                        className="h-11 focus:ring-2 focus:ring-blue-100 pr-12"
+                        placeholder="Enter your password"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                      >
+                        {showPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
+                      </Button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+                  <span>Logging in...</span>
+                </div>
+              ) : (
+                "Sign In"
+              )}
+            </Button>
+
+            <div className="space-y-4">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t"></span>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">or</span>
+                </div>
+              </div>
+
+              <div className="text-center space-y-2">
+                <p className="text-gray-600">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    href="/register"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Sign up
+                  </Link>
+                </p>
+                <Link
+                  href="/"
+                  className="text-gray-500 hover:text-gray-600 text-sm block"
+                >
+                  ← Back to Home
+                </Link>
+              </div>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }

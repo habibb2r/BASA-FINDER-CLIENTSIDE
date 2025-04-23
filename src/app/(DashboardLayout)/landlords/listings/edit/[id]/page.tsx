@@ -131,11 +131,11 @@ const EditListing = () => {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "pxuxm8bg");
-        formData.append("cloud_name", "dd3w1s9gq");
+        formData.append("upload_preset", "cfzfnkte");
+        formData.append("cloud_name", "dairs3nkn");
 
         const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dd3w1s9gq/image/upload",
+          "https://api.cloudinary.com/v1_1/dairs3nkn/image/upload",
           {
             method: "POST",
             body: formData,

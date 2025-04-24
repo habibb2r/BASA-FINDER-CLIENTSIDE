@@ -13,19 +13,19 @@ import Link from "next/link";
 
 const teamMembers = [
   {
-    name: "Mohammad Rahman",
+    name: "Md Habib Ullah",
     role: "Founder & CEO",
     image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420640/habibb2r/stjknpjpivlxqajuv3ui.jpg",
     bio: "Property tech innovator with extensive experience in Bangladesh's real estate market and digital solutions.",
   },
   {
-    name: "Aisha Khan",
+    name: "Israt Jahan",
     role: "Head of Operations",
     image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420627/habibb2r/obblhx76oc2yrioy0biq.jpg",
     bio: "Operations expert focused on creating seamless rental experiences and property management solutions.",
   },
   {
-    name: "Kamal Hassan",
+    name: "HABIBB2R",
     role: "Chief Marketing Officer",
     image: "https://res.cloudinary.com/dairs3nkn/image/upload/v1745420711/habibb2r/v0ngqliesrmhzajh0m7c.jpg",
     bio: "Digital marketing strategist dedicated to connecting property owners with ideal tenants across Bangladesh.",

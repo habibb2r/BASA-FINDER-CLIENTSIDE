@@ -2,7 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { getAuthToken } from "../Requests";
+
 
 // ✅ Get all users
 export const getAllUsers = async () => {
@@ -39,24 +39,6 @@ export const getSingleUser = async (userId: string) => {
   }
 };
 
-// ✅ Update User Profile
-// export const updateUserProfile = async (profileData: FormData) => {
-//   try {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/update-profile`, {
-//       method: "PATCH",
-//       body: profileData,
-//       headers: {
-//         Authorization: (await cookies()).get("accessToken")!.value,
-//       },
-//     });
-//     console.log(profileData);
-//     revalidateTag("USERS");
-//     return await res.json();
-//   } catch (error: any) {
-//     return Error(error.message);
-//   }
-// };
-// Change the parameter type from FormData to the data object type
 export const updateUserProfile = async (profileData: {
   name: string;
   email?: string;

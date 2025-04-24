@@ -172,6 +172,7 @@ const ViewRequests = () => {
 
         // Redirect if checkout URL exists
         const checkoutUrl = response?.data?.checkoutUrl;
+        console.log(checkoutUrl)
         if (
           typeof checkoutUrl === "string" &&
           checkoutUrl.startsWith("https")

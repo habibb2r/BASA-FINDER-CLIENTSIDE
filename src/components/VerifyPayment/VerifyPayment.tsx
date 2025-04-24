@@ -19,7 +19,7 @@ interface PaymentData {
   name: string;
   email: string;
   method: string;
-  is_verify: boolean;
+  // status: string;
   invoice_no: string;
   amount: number;
   currency: string;
@@ -46,7 +46,7 @@ export default function VerifyPayment() {
 
       try {
         const response = await verifyPayment(orderId);
-        
+        console.log("Payment verification response:", response);
         if (response.success && response.data?.length > 0) {
           setPaymentData(response.data[0]);
         } else {
@@ -64,7 +64,7 @@ export default function VerifyPayment() {
   }, [orderId]);
 
   const handleHomeRedirect = () => {
-    router.push("/");
+    router.push("/tenants/requests");
   };
 
   if (isLoading) {
@@ -80,8 +80,8 @@ export default function VerifyPayment() {
     <div className="min-h-screen flex justify-center items-center p-6 bg-gradient-to-br from-blue-500 to-cyan-600">
       <Card className="w-full max-w-3xl shadow-xl rounded-xl border border-blue-200 overflow-hidden transition-all duration-300 hover:shadow-2xl">
         <CardHeader className="text-center pb-2">
-          <div className={`mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-full shadow-lg ${paymentData?.is_verify ? 'bg-blue-900' : 'bg-red-600'}`}>
-            {paymentData?.is_verify ? (
+          <div className={`mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-full shadow-lg ${paymentData?.sp_message ==='Success' ? 'bg-blue-900' : 'bg-red-600'}`}>
+            {paymentData?.sp_message ==='Success' ? (
               <CheckCircle className="w-8 h-8 text-white" />
             ) : (
               <XCircle className="w-8 h-8 text-white" />
@@ -91,7 +91,7 @@ export default function VerifyPayment() {
             Payment Verification
           </CardTitle>
           <CardDescription className="text-gray-600 mt-1">
-            {paymentData?.is_verify 
+            {paymentData?.sp_message === 'Success'
               ? "Your payment has been successfully verified!" 
               : error || "Payment verification failed. Please check your order details."}
           </CardDescription>
@@ -125,14 +125,14 @@ export default function VerifyPayment() {
               </div>
 
               <div className="flex items-center gap-2">
-                {paymentData.is_verify ? (
+                {paymentData.sp_message ==='Success' ? (
                   <CheckCircle className="h-5 w-5 text-green-500" />
                 ) : (
                   <XCircle className="h-5 w-5 text-red-500" />
                 )}
                 <span className="font-semibold">Payment Status:</span>
-                <span className={paymentData.is_verify ? "text-green-500" : "text-red-500"}>
-                  {paymentData.is_verify ? "Verified ✅" : "Not Verified ❌"}
+                <span className={paymentData.sp_message ==='Success' ? "text-green-500" : "text-red-500"}>
+                  {paymentData.sp_message ==='Success' ? "Verified ✅" : "Not Verified ❌"}
                 </span>
               </div>
 

@@ -18,7 +18,7 @@ export const getAllUsers = async () => {
     const token = await getAuthToken();
     if (!token) return { success: false, message: "Authentication token not found" };
 
-    const res = await fetch(`${BASE_API}/users`, {
+    const res = await fetch(`${BASE_API}/user`, {
       method: "GET",
       headers: { Authorization: token },
       next: { tags: ["users"] },

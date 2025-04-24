@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { User, Home, Phone, Mail, Loader2 } from "lucide-react";
 import { updateUserProfile } from "@/services/Users";
 import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+
 // import { useUser } from "@/hooks/useUser";
 
 // Validation Schema
@@ -26,6 +28,7 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
 
 const UpdateProfile = () => {
   const { user, isLoading: userLoading } = useUser();
+  const router = useRouter();
 
   const {
     control,
@@ -73,6 +76,9 @@ const UpdateProfile = () => {
           id: toastId,
           duration: 2000,
         });
+        setTimeout(() => {
+          router.push('/profile'); // or your desired route
+        }, 2000);
       } else {
         toast.error(res.message || "Failed to update profile", {
           id: toastId,

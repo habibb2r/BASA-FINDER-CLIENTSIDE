@@ -101,7 +101,7 @@ const PaymentHistory = () => {
                     <TableCell>{payment.phone}</TableCell>
                     <TableCell>{payment.tenantEmail}</TableCell>
                     <TableCell>${payment.amount}</TableCell>
-                    <TableCell>{payment.transaction.method}</TableCell>
+                    <TableCell>{payment?.transaction?.method}</TableCell>
                     <TableCell>{payment.status}</TableCell>
                     <TableCell>{new Date(payment.createdAt).toLocaleDateString()}</TableCell>
                   </TableRow>

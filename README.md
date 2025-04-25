@@ -159,3 +159,13 @@ The client app is deployed on **Vercel**:
 ## 📄 License
 
 Licensed under the **MIT License**.
+
+## 👨‍💻 Developer
+
+**HABIBB2R**
+
+- GitHub: [@habibb2r](https://github.com/habibb2r)
+- LinkedIn: [@habibb2r](https://linkedin.com/in/habibb2r)
+- Portfolio: [habibb2r.site](https://habibb2r.site)
+
+---

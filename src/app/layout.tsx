@@ -3,7 +3,7 @@ import { Plus_Jakarta_Sans, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Providers from "@/providers/Providers";
-import ico from "@/assets/mansion.png";
+
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],

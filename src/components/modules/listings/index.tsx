@@ -1,6 +1,6 @@
 import ListingCard from "@/components/ui/core/ListingCard";
 import { TRentalListing } from "@/types";
-import FilterSidebar from "./filterSidebar";
+
 import { Button } from "@/components/ui/button";
 import { Building, SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const AllListings = ({ listings }: { listings: TRentalListing[] }) => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
-                <FilterSidebar />
+                
               </SheetContent>
             </Sheet>
           </div>
@@ -50,7 +50,7 @@ const AllListings = ({ listings }: { listings: TRentalListing[] }) => {
         <div className="flex gap-8">
           {/* Desktop Filter Sidebar */}
           <div className="hidden lg:block w-full max-w-[300px] bg-white rounded-2xl shadow-sm border border-gray-100 sticky top-24 h-fit overflow-hidden">
-            <FilterSidebar />
+
           </div>
 
           {/* Listings Grid */}

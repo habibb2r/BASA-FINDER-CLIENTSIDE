@@ -44,7 +44,7 @@ export function NavUser() {
               className="hover:bg-sidebar-accent/60 hover:shadow-sm transition-all duration-300 group relative after:absolute after:inset-0 after:rounded-lg after:ring-1 after:ring-sidebar-border/5 after:transition-opacity after:opacity-0 hover:after:opacity-100"
             >
               <Avatar className="h-8 w-8 rounded-lg ring-2 ring-sidebar-ring/20 transition-all duration-200 group-hover:ring-sidebar-ring/40 group-hover:scale-105">
-                <AvatarImage alt={user?.name} src={user?.avatar} />
+                <AvatarImage alt={user?.name} src={user?.photoURL} />
                 <AvatarFallback className="font-medium text-sidebar-foreground/90">
                   {user?.name?.charAt(0)}
                 </AvatarFallback>

@@ -1,120 +1,161 @@
-# BASA-FINDER
+# BASA-FINDER – Client Side
 
-A modern rental property management platform connecting landlords and tenants in Bangladesh.
+A modern rental property management platform that connects landlords and tenants across Bangladesh. This client-side application is built using **Next.js 13+ (App Router)** and offers a smooth, interactive user experience.
 
-## Features
+---
 
-### For Tenants
+## ✨ Features
 
-- Browse verified rental listings with detailed property information
-- Advanced property search with filters (location, price range, bedrooms)
+### 🧍‍♂️ Tenants
+
+- Browse verified rental listings with detailed information
+- Filter listings by location, price, and bedroom count
 - Submit rental requests to landlords
-- Secure online rent payment system
-- Track rental applications and payment history
-- View landlord contact information after request approval
+- View request status and landlord contact info after approval
+- Secure rent payment via ShurjoPay
+- Track application and payment history
 
-### For Landlords
+### 🏠 Landlords
 
 - Create and manage property listings with multiple images
-- Detailed property information management (location, rent, amenities, etc.)
-- Review and manage tenant rental requests
-- Track property availability and rental status
-- Manage tenant communications
+- Include detailed property info (location, rent, amenities, etc.)
+- Review and manage rental requests
+- Track property availability and rent status
+- Communicate with approved tenants
 
-### For Admins
+### 🛠️ Admins
 
-- Review and monitor all rental listings
-- Oversee tenant-landlord interactions
-- Platform management and oversight
-- Review rental requests and payments
+- View and manage all rental listings
+- Monitor tenant-landlord interactions
+- Oversee requests and payment flows
+- Manage platform users and content
 
-## Tech Stack
+---
 
-- **Frontend**: Next.js 13+ with App Router
-- **UI Components**: Tailwind CSS, Shadcn UI
-- **State Management**: React Context
-- **Form Handling**: React Hook Form, Zod validation
-- **Authentication**: JWT-based auth
-- **Payment Integration**: SurjoPay
-- **Image Hosting**: Cloudinary
-- **Styling**: TailwindCSS with custom configurations
+## 🧰 Tech Stack
 
-## Getting Started
+- **Framework**: Next.js 13+ (App Router)
+- **Styling**: Tailwind CSS with custom configurations
+- **UI Library**: Shadcn UI
+- **State Management**: React Context API
+- **Forms & Validation**: React Hook Form + Zod
+- **Authentication**: JWT-based (via secure cookies)
+- **Image Upload**: Cloudinary
+- **Payment Gateway**: ShurjoPay
+- **API Communication**: Axios
 
-### Prerequisites
+---
+
+## 🚀 Getting Started
+
+### ✅ Prerequisites
 
 - Node.js 18.x or later
-- npm/yarn package manager
+- npm or yarn
 - Git
 
-### Installation
+### 📦 Installation
 
-1. Clone the repository:
-   \`\`\`bash
+1. **Clone the repository:**
+
+   ```bash
    git clone https://github.com/habibb2r/BASA-FINDER-CLIENTSIDE.git
    cd BASA-FINDER-CLIENTSIDE
-   \`\`\`
+   ```
 
-2. Install dependencies:
-   \`\`\`bash
+2. **Install dependencies:**
+
+   ```bash
    npm install
+   # or
+   yarn install
+   ```
 
-# or
+3. **Create a `.env` file** in the root and add:
 
-yarn install
-\`\`\`
+   ```env
+   NEXT_PUBLIC_BASE_API=https://your-api-domain.com/api/v1
+   ```
 
-3. Create a \`.env\` file in the root directory and add necessary environment variables:
-   \`\`\`env
-   NEXT_PUBLIC_BASE_API=your_api_url
-   \`\`\`
+4. **Run the development server:**
 
-4. Run the development server:
-   \`\`\`bash
+   ```bash
    npm run dev
+   # or
+   yarn dev
+   ```
 
-# or
+5. Open [http://localhost:3000](http://localhost:3000) to view in your browser.
 
-yarn dev
-\`\`\`
+---
 
-The application will be available at `https://basa-finder-clientside.vercel.app/`
+## 🗂️ Project Structure
 
-## Project Structure
+```
+src/
+├── app/              # Next.js App Router pages and layouts
+├── components/
+│   ├── modules/      # Feature-specific components
+│   ├── shared/       # Common UI (navbar, footer, etc.)
+│   └── ui/           # Base reusable UI components
+├── context/          # React Context providers (e.g., auth)
+├── services/         # API requests via Axios
+├── types/            # TypeScript types and interfaces
+├── hooks/            # Custom React hooks
+└── lib/              # Utilities and helpers
+```
 
-- `/src/app` - Next.js 13+ app router pages and layouts
-- `/src/components` - Reusable UI components
-  - `/modules` - Feature-specific components
-  - `/shared` - Shared components (navbar, footer, etc.)
-  - `/ui` - Base UI components
-- `/src/services` - API services and data fetching
-- `/src/context` - React Context providers
-- `/src/types` - TypeScript type definitions
-- `/src/hooks` - Custom React hooks
-- `/src/lib` - Utility functions and helpers
+---
 
-## Key Features Implementation
+## 🔐 Authentication Flow
 
-### Property Listings
+- JWT-based login/signup system
+- Roles: Tenant, Landlord, Admin
+- Auth token stored securely via HTTP-only cookies
+- Protected routes based on user role
 
-- Image upload with Cloudinary integration
-- Rich property details including amenities
-- Location-based search functionality
-- Filter by price range and number of bedrooms
+---
 
-### Rental Requests
+## 🏘️ Key Modules
 
-- Secure request submission system
-- Status tracking (pending/approved/rejected)
-- Automated notifications
-- Payment integration for approved requests
+### 🏠 Property Listings
 
-### User Management
+- Create/edit listings (Landlords only)
+- View and filter listings (Tenants)
+- Upload images via Cloudinary
 
-- Role-based access control (Admin/Landlord/Tenant)
-- Profile management
-- Contact information verification
+### 📩 Rental Requests
 
-## License
+- Submit and manage rental requests
+- Track request statuses: Pending, Approved, Rejected
+- Landlord approval unlocks tenant contact info
 
-This project is licensed under the MIT License.
+### 💳 Rent Payments
+
+- Rent payments powered by ShurjoPay
+- Transaction history available to Tenants and Admins
+- Admin panel includes revenue statistics
+
+---
+
+## ⚙️ Scripts
+
+```bash
+npm run dev         # Run development server
+npm run build       # Build for production
+npm run lint        # Lint code with ESLint
+npm run format      # Format code with Prettier
+```
+
+---
+
+## 🌐 Live Deployment
+
+The client app is deployed on **Vercel**:  
+🔗 [https://basa-finder-clientside.vercel.app](https://basa-finder-clientside.vercel.app)
+
+---
+
+## 📄 License
+
+Licensed under the **MIT License**.

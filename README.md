@@ -51,7 +51,7 @@ A modern rental property management platform connecting landlords and tenants in
 
 1. Clone the repository:
    \`\`\`bash
-   git clone [repository-url]
+   git clone https://github.com/habibb2r/BASA-FINDER-CLIENTSIDE.git
    cd BASA-FINDER-CLIENTSIDE
    \`\`\`
 
@@ -64,7 +64,7 @@ A modern rental property management platform connecting landlords and tenants in
 yarn install
 \`\`\`
 
-3. Create a \`.env.local\` file in the root directory and add necessary environment variables:
+3. Create a \`.env\` file in the root directory and add necessary environment variables:
    \`\`\`env
    NEXT_PUBLIC_BASE_API=your_api_url
    \`\`\`
@@ -78,7 +78,7 @@ yarn install
 yarn dev
 \`\`\`
 
-The application will be available at `http://localhost:3000`
+The application will be available at `https://basa-finder-clientside.vercel.app/`
 
 ## Project Structure
 

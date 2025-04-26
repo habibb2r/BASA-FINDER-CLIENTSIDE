@@ -1,4 +1,4 @@
-// export interface IUser {
+
 
 
 
@@ -13,7 +13,7 @@ export interface IUser {
   city?: string;
   needsPasswordChange?: boolean;
   passwordChangedAt?: Date;
-  role: 'admin' | 'landlord' | 'tenant'; // 🔹 Updated Roles
+  role: 'admin' | 'landlord' | 'tenant'; 
   status?: 'active' | 'blocked';
   isBlocked: boolean;
   isDeleted: boolean;

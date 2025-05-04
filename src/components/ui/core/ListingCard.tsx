@@ -17,14 +17,12 @@ interface ListingCardProps {
   };
 }
 
-
-
 const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
   const imageUrl =
     listing.images[0]?.replace("http://", "https://") || "/placeholder.jpg";
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100">
+    <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100 h-full flex flex-col">
       {/* Image Container */}
       <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
         <Image
@@ -49,17 +47,17 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         {/* Location */}
         <div className="flex items-start gap-2 mb-3">
           <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" />
-          <h3 className="text-lg font-semibold text-gray-800 line-clamp-2 leading-tight">
+          <h3 className="text-lg font-semibold text-gray-800 line-clamp-2 leading-tight min-h-[48px]">
             {listing.location}
           </h3>
         </div>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed min-h-[40px]">
           {listing.description}
         </p>
 
@@ -80,7 +78,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
         </div>
 
         {/* Amenities */}
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className="flex flex-wrap gap-2 mb-5 min-h-[32px]">
           {listing.amenities.slice(0, 3).map((amenity, idx) => (
             <Badge
               key={idx}
@@ -101,11 +99,13 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
         </div>
 
         {/* Action Button */}
-        <Link href={`/listings/${listing?.id}`} className="block">
-          <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl py-6 font-medium shadow-lg hover:shadow-xl transition-all duration-300">
-            View Details
-          </Button>
-        </Link>
+        <div className="mt-auto">
+          <Link href={`/listings/${listing?.id}`} className="block">
+            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl py-6 font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+              View Details
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

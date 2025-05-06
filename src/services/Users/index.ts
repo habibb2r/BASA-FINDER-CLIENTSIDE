@@ -44,6 +44,7 @@ export const updateUserProfile = async (profileData: {
   email?: string;
   phone?: string;
   address: string;
+  photoURL?: string;
 }) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/update-profile`, {

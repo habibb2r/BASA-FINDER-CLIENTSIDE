@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -9,12 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { User, Home, Phone, Mail, Loader2 } from "lucide-react";
+import { User, Home, Phone, Mail, Loader2, UploadCloud } from "lucide-react";
 import { updateUserProfile } from "@/services/Users";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
-
-// import { useUser } from "@/hooks/useUser";
+import Image from "next/image";
 
 // Validation Schema
 const profileSchema = z.object({
@@ -22,6 +21,7 @@ const profileSchema = z.object({
   email: z.string().email("Please enter a valid email").optional(),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   address: z.string().min(5, "Address must be at least 5 characters"),
+  photoURL: z.string().optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileSchema>;
@@ -29,6 +29,8 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
 const UpdateProfile = () => {
   const { user, isLoading: userLoading } = useUser();
   const router = useRouter();
+  const [isUploading, setIsUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
 
   const {
     control,
@@ -42,6 +44,7 @@ const UpdateProfile = () => {
       email: "",
       phone: "",
       address: "",
+      photoURL: "",
     },
   });
 
@@ -53,20 +56,64 @@ const UpdateProfile = () => {
         email: user.email || "",
         phone: user.phone || "", // Fixed: using phone instead of phone_number
         address: user.address || "",
+        photoURL: user.photoURL || "",
       });
     }
   }, [user, reset]);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    setIsUploading(true);
+    const toastId = toast.loading("Uploading photo...");
+
+    try {
+      // Create preview URL
+      setPreviewUrl(URL.createObjectURL(file));
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "cfzfnkte");
+      formData.append("cloud_name", "dairs3nkn");
+
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dairs3nkn/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!res.ok) throw new Error("Upload failed");
+
+      const result = await res.json();
+      // Update the form with the new photo URL
+      reset({
+        ...control._formValues,
+        photoURL: result.url,
+      });
+
+      toast.success("Photo uploaded successfully!", { id: toastId });
+    } catch (error: any) {
+      console.error("Upload error:", error);
+      toast.error("Photo upload failed!", { id: toastId });
+      setPreviewUrl(""); // Clear preview on error
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const onSubmit = async (data: ProfileFormValues) => {
     const toastId = toast.loading("Updating Profile...");
 
     try {
-      // Convert FormData to a plain object
       const profileData = {
         name: data.name,
         email: data.email,
         phone: data.phone,
         address: data.address,
+        photoURL: data.photoURL,
       };
 
       const res = await updateUserProfile(profileData);
@@ -108,8 +155,18 @@ const UpdateProfile = () => {
         <div className="text-center mb-10">
           <div className="relative w-28 h-28 mx-auto mb-6">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full animate-pulse opacity-75"></div>
-            <div className="relative bg-white rounded-full p-6 shadow-2xl transform hover:scale-105 transition-transform duration-300">
-              <User className="w-full h-full text-blue-600" />
+            <div className="relative bg-white rounded-full p-1 shadow-2xl transform hover:scale-105 transition-transform duration-300 overflow-hidden">
+              {(previewUrl || user?.photoURL) ? (
+                <Image
+                  src={previewUrl || user?.photoURL || "/placeholder.jpg"}
+                  alt="Profile"
+                  width={112}
+                  height={112}
+                  className="rounded-full object-cover w-full h-full"
+                />
+              ) : (
+                <User className="w-full h-full text-blue-600 p-5" />
+              )}
             </div>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-3">
@@ -123,6 +180,41 @@ const UpdateProfile = () => {
         <Card className="backdrop-blur-sm bg-white/90 shadow-2xl border-0 rounded-2xl overflow-hidden">
           <CardContent className="p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
+              {/* Photo Upload Field */}
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700 block pl-1">
+                  Profile Photo
+                </label>
+                <div className="relative group">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUploading}
+                    className="hidden"
+                    id="photo-upload"
+                  />
+                  <label
+                    htmlFor="photo-upload"
+                    className="flex items-center justify-center w-full p-4 border-2 border-dashed rounded-xl cursor-pointer hover:bg-gray-50 transition-colors duration-300"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <UploadCloud className="w-8 h-8 text-blue-500" />
+                      <span className="text-sm text-gray-600">
+                        {isUploading ? "Uploading..." : "Click to upload photo"}
+                      </span>
+                    </div>
+                  </label>
+                  <Controller
+                    name="photoURL"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="hidden" {...field} />
+                    )}
+                  />
+                </div>
+              </div>
+
               {/* Name Field */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-gray-700 block pl-1">

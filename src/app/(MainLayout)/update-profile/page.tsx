@@ -91,7 +91,7 @@ const UpdateProfile = () => {
       // Update the form with the new photo URL
       reset({
         ...control._formValues,
-        photoURL: result.url,
+        photoURL: result.secure_url,
       });
 
       toast.success("Photo uploaded successfully!", { id: toastId });

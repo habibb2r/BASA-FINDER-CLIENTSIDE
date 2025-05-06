@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Bath, BedDouble, MapPin, Home } from "lucide-react";
+import { Bath, BedDouble, MapPin, Home, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface ListingCardProps {
@@ -18,90 +18,87 @@ interface ListingCardProps {
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
-  const imageUrl =
-    listing.images[0]?.replace("http://", "https://") || "/placeholder.jpg";
+  const imageUrl = listing.images[0]?.replace("http://", "https://") || "/placeholder.jpg";
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100 h-full flex flex-col">
+    <div className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg hover:border-blue-100">
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={imageUrl}
           alt={`${listing.location} Property`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority
-          className="transition-transform duration-500 group-hover:scale-105 object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "/placeholder.jpg";
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-        {/* Price Badge */}
-        <div className="absolute top-4 left-4 z-10">
-          <Badge className="px-4 py-2 bg-white/95 backdrop-blur-sm text-gray-900 font-semibold shadow-lg rounded-full text-base">
+        
+        {/* Overlay and Price Badge */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
+        <div className="absolute top-4 left-4">
+          <Badge className="px-3 py-1.5 bg-white font-semibold text-gray-900 shadow-lg rounded-lg text-sm backdrop-blur-sm">
             ৳{listing.rentAmount.toLocaleString()}
+            <span className="text-gray-500 text-xs ml-1">/month</span>
           </Badge>
         </div>
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5">
         {/* Location */}
         <div className="flex items-start gap-2 mb-3">
-          <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" />
-          <h3 className="text-lg font-semibold text-gray-800 line-clamp-2 leading-tight min-h-[48px]">
+          <MapPin className="w-4 h-4 text-blue-500 flex-shrink-0 mt-1" />
+          <h3 className="text-base font-medium text-gray-900 line-clamp-2">
             {listing.location}
           </h3>
         </div>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed min-h-[40px]">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
           {listing.description}
         </p>
 
         {/* Features */}
-        <div className="flex items-center gap-6 mb-4 text-gray-700">
-          <div className="flex items-center gap-2">
-            <BedDouble className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium">{listing.bedrooms} Beds</span>
+        <div className="flex flex-wrap gap-4 mb-4 text-sm">
+          <div className="flex items-center gap-1.5">
+            <BedDouble className="w-4 h-4 text-blue-500" />
+            <span className="text-gray-600">{listing.bedrooms} Beds</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Bath className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium">2 Baths</span>
+          <div className="flex items-center gap-1.5">
+            <Bath className="w-4 h-4 text-blue-500" />
+            <span className="text-gray-600">2 Baths</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Home className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium">House</span>
+          <div className="flex items-center gap-1.5">
+            <Home className="w-4 h-4 text-blue-500" />
+            <span className="text-gray-600">House</span>
           </div>
         </div>
 
         {/* Amenities */}
-        <div className="flex flex-wrap gap-2 mb-5 min-h-[32px]">
+        <div className="flex flex-wrap gap-2 mb-4">
           {listing.amenities.slice(0, 3).map((amenity, idx) => (
-            <Badge
+            <div
               key={idx}
-              variant="default"
-              className="bg-blue-50/50 text-blue-700 hover:bg-blue-100 transition-colors duration-200 px-3 py-1"
+              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 rounded-md text-xs font-medium"
             >
+              <Check className="w-3 h-3" />
               {amenity}
-            </Badge>
+            </div>
           ))}
           {listing.amenities.length > 3 && (
-            <Badge
-              variant="default"
-              className="text-gray-600 hover:bg-gray-50 transition-colors duration-200 px-3 py-1"
-            >
+            <div className="inline-flex items-center px-2 py-1 bg-gray-50 text-gray-600 rounded-md text-xs font-medium">
               +{listing.amenities.length - 3} more
-            </Badge>
+            </div>
           )}
         </div>
 
         {/* Action Button */}
-        <div className="mt-auto">
+        <div className="mt-auto pt-4 border-t border-gray-100">
           <Link href={`/listings/${listing?.id}`} className="block">
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl py-6 font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg h-10 font-medium transition-colors">
               View Details
             </Button>
           </Link>

@@ -89,7 +89,7 @@ const HeroSection = () => {
 
             {/* Stats */}
             <motion.div
-              className="grid grid-cols-3 gap-6 max-w-xl"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 w-full sm:max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -97,13 +97,13 @@ const HeroSection = () => {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100"
+                  className="bg-white rounded-lg p-3 sm:p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100"
                 >
-                  <stat.icon className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                  <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mx-auto mb-1 sm:mb-2" />
+                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
                 </div>
               ))}
             </motion.div>

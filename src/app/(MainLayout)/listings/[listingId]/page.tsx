@@ -17,13 +17,7 @@ const ListingDetailsPage = async ({
 
   return (
     <NMContainer>
-      <ListingBanner
-        // title="Listing Details"
-        // path="Home - Listings - Listing Details"
-        title=""
-        path=""
-      />
-      {/* <ProductDetails product={product} /> */}
+      
       <ListingDetails listing={listing} />
     </NMContainer>
   );

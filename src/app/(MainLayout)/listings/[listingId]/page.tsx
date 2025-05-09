@@ -1,8 +1,5 @@
-import ListingBanner from "@/components/modules/listings/banner";
-
 import ListingDetails from "@/components/modules/listings/listingDetails";
 import NMContainer from "@/components/ui/core/NMContainer";
-
 import { getSingleListing } from "@/services/Listings";
 
 const ListingDetailsPage = async ({
@@ -11,13 +8,10 @@ const ListingDetailsPage = async ({
   params: Promise<{ listingId: string }>;
 }) => {
   const { listingId } = await params;
-
-  // const { data: product } = await getSingleProduct(productId);
   const { data: listing } = await getSingleListing(listingId);
 
   return (
     <NMContainer>
-      
       <ListingDetails listing={listing} />
     </NMContainer>
   );

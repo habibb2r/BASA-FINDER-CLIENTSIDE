@@ -1,72 +1,117 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { IProduct } from "@/types";
 import { Star } from "lucide-react";
 import Image from "next/image";
 
-const ProductDetails = ({ product }: { product: IProduct }) => {
-  return (
-    <div className="grid grid-cols-2 gap-4 border border-white p-4 rounded-md my-5 shadow-sm">
-      <div>
-        <Image
-          src={product?.imageUrls[0]}
-          alt="product image"
-          width={500}
-          height={500}
-          className="rounded-md w-full object-cover h-80"
-        />
-        <div className="grid grid-cols-3 gap-4 mt-5">
-          {product?.imageUrls.slice(0, 3).map((image: string, idx: number) => (
-            <Image
-              key={idx}
-              src={image}
-              alt="product image"
-              width={500}
-              height={500}
-              className="rounded-md w-full object-cover h-40"
-            />
-          ))}
-        </div>
-      </div>
-      <div className="bg-white rounded-md p-4">
-        <h2 className="font-bold text-xl mb-4">{product?.name}</h2>
-        <p className="text-justify text-gray-500 font-light text-sm">
-          {product?.description}
-        </p>
-        <div className="flex items-center justify-between my-5 text-gray-500 text-xs">
-          <p className="rounded-full px-4 py-1 bg-gray-100 flex items-center justify-center gap-1">
-            <Star className="w-4 h-4" fill="orange" stroke="orange" />
-            {product?.averageRating} Ratings
-          </p>
-          <p className="rounded-full px-4 py-1 bg-gray-100">
-            Stock: {product?.stock}
-          </p>
-          <p className="rounded-full px-4 py-1 bg-gray-100">
-            Brand: {product?.brand?.name}
-          </p>
-          <p className="rounded-full px-4 py-1 bg-gray-100">
-            Category: {product?.category?.name}
-          </p>
-        </div>
-        <hr />
-        <p className="my-2 font-bold">
-          Price:{" "}
-          {product?.offerPrice ? (
-            <>
-              <span className="font-semibold mr-2 text-orange-400">
-                $ {product?.offerPrice}
-              </span>
-              <del className="font-semibold text-xs">$ {product?.price}</del>
-            </>
-          ) : (
-            <span className="font-semibold">$ {product?.price}</span>
-          )}
-        </p>
-        <hr />
+interface IProduct {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  offerPrice?: number;
+  imageUrls: string[];
+  stock: number;
+  averageRating: number;
+  brand?: {
+    name: string;
+  };
+  category?: {
+    name: string;
+  };
+}
 
-        <Button variant="outline" className="w-full my-5">
-          Add To Cart
-        </Button>
-        <Button className="w-full">Buy Now</Button>
+const ProductDetails = ({ product }: { product: IProduct }) => {
+  if (!product) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <p className="text-gray-500">Product not found</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto p-4">
+      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-8 p-6">
+          {/* Image Gallery */}
+          <div className="space-y-4">
+            <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+              <Image
+                src={product.imageUrls[0] || "/placeholder.jpg"}
+                alt={product.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {product.imageUrls.slice(1, 4).map((image, idx) => (
+                <div key={idx} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                  <Image
+                    src={image}
+                    alt={`${product.name} - ${idx + 2}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
+              <p className="mt-4 text-gray-600">{product.description}</p>
+            </div>
+
+            <div className="flex items-center gap-4 text-sm text-gray-600">
+              <div className="flex items-center gap-1 px-3 py-1 bg-blue-50 rounded-full">
+                <Star className="w-4 h-4" fill="orange" stroke="orange" />
+                <span>{product.averageRating} Rating</span>
+              </div>
+              <div className="px-3 py-1 bg-blue-50 rounded-full">
+                Stock: {product.stock}
+              </div>
+            </div>
+
+            <div className="border-t border-b border-gray-100 py-4">
+              {product.brand && (
+                <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                  <span className="font-medium">Brand:</span>
+                  <span>{product.brand.name}</span>
+                </div>
+              )}
+              {product.category && (
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <span className="font-medium">Category:</span>
+                  <span>{product.category.name}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-gray-900">
+                  ${product.offerPrice || product.price}
+                </span>
+                {product.offerPrice && (
+                  <span className="text-lg text-gray-500 line-through">
+                    ${product.price}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex gap-4">
+                <Button className="flex-1 h-12">Buy Now</Button>
+                <Button variant="outline" className="flex-1 h-12">
+                  Add to Cart
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -23,6 +23,11 @@ import {
   Check,
   Bath,
   Home,
+  ChevronDown,
+  Mail,
+  MessageCircle,
+  PhoneCall,
+  
 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -34,6 +39,11 @@ import { useRentalRequest } from "@/context/RentalRequestContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
   const { user } = useUser();
@@ -75,9 +85,10 @@ const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
 
   return (
     <div className="container mx-auto my-8 px-4">
-      <Card className="bg-white rounded-2xl shadow-md overflow-hidden">
-        {/* Image Gallery */}
-        <div className="relative">
+      <Card className=" bg-white rounded-2xl shadow-md overflow-hidden">
+       <div className="flex flex-col md:flex-row  justify-center items-start gap-6 px-4 py-3">
+         {/* Image Gallery */}
+         <div className="relative w-full md:w-[55%]">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
@@ -91,7 +102,7 @@ const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
                   src={image.replace("http://", "https://") || "/placeholder.jpg"}
                   alt={`Listing Image ${idx}`}
                   fill
-                  className="object-cover"
+                  className="object-cover rounded-md"
                   priority={idx === 0}
                 />
               </SwiperSlide>
@@ -99,16 +110,76 @@ const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
           </Swiper>
           
           {/* Price Badge */}
-          <div className="absolute bottom-6 left-6 z-10">
+          <div className="absolute top-6 left-6 z-10">
             <Badge className="px-4 py-2 bg-white/95 backdrop-blur-sm text-gray-900 shadow-lg rounded-lg text-lg font-semibold">
               ৳{listing.rentAmount.toLocaleString()}
               <span className="text-gray-500 text-sm ml-1">/month</span>
             </Badge>
           </div>
+
+          {/* Add Q&A section before the sidebar */}
+            <div className="mt-8 space-y-4 border rounded-lg p-6 bg-white">
+              <h2 className="text-2xl font-semibold mb-4">Frequently Asked Questions</h2>
+              
+              <Collapsible className="space-y-2">
+                <CollapsibleTrigger className="flex justify-between w-full px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    <span className="font-medium">How does the rental request process work?</span>
+                  </div>
+                  <ChevronDown className="h-5 w-5" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="px-4 py-2">
+                  <ol className="list-decimal ml-4 space-y-2">
+                    <li>Browse and select your desired accommodation</li>
+                    <li>Click on &quot;Request to Rent&quot; button</li>
+                    <li>Fill in your rental duration and any special requirements</li>
+                    <li>Submit your request and wait for owner approval</li>
+                    <li>Once approved, proceed with the payment</li>
+                  </ol>
+                </CollapsibleContent>
+              </Collapsible>
+
+              <Collapsible className="space-y-2">
+                <CollapsibleTrigger className="flex justify-between w-full px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    <span className="font-medium">What is the payment procedure?</span>
+                  </div>
+                  <ChevronDown className="h-5 w-5" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="px-4 py-2">
+                  <ul className="list-disc ml-4 space-y-2">
+                    <li>We accept various payment methods including credit cards and bank transfers</li>
+                    <li>A security deposit may be required (refundable)</li>
+                    <li>Payment is processed securely through our platform</li>
+                    <li>Monthly rent is due on the agreed date each month</li>
+                  </ul>
+                </CollapsibleContent>
+              </Collapsible>
+
+              <div className="mt-6 border-t pt-6">
+                <h3 className="text-lg font-semibold mb-4">Need Help?</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <MessageCircle className="h-5 w-5 text-primary" />
+                    <p>Chat with us through the messaging system</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-primary" />
+                    <p>Email: support@basafinder.com</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <PhoneCall className="h-5 w-5 text-primary" />
+                    <p>Call: +123 456 7890</p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
 
         <CardContent className="p-6 md:p-8">
-          <div className="grid md:grid-cols-[2fr,1fr] gap-8">
+          <div className="flex flex-col justify-center gap-6">
             {/* Main Content */}
             <div className="space-y-6">
               {/* Location and Title */}
@@ -167,6 +238,8 @@ const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
               </div>
             </div>
 
+            
+
             {/* Sidebar */}
             <div>
               <div className="sticky top-24 bg-gray-50 rounded-xl p-6">
@@ -187,6 +260,7 @@ const ListingDetails = ({ listing }: { listing: TRentalListing }) => {
             </div>
           </div>
         </CardContent>
+       </div>
       </Card>
 
       {/* Rental Request Modal */}

@@ -19,8 +19,8 @@ export const getAllUsers = async () => {
 
 // ✅ Get single user
 export const getSingleUser = async (userId: string) => {
-  console.log('triggered')
-  console.log("User ID:", userId);
+  // console.log('triggered')
+  // console.log("User ID:", userId);
   try {
     // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/${userId}`, {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/my-profile/${userId}`, {
@@ -31,7 +31,7 @@ export const getSingleUser = async (userId: string) => {
       },
       next: { tags: ["USERS"] },
     });
-    console.log(res)
+    // console.log(res)
 
     return await res.json();
   } catch (error: any) {
@@ -59,7 +59,7 @@ export const updateUserProfile = async (profileData: {
     console.log("Profile Data:", profileData);
 
     const responseData = await res.json();
-    console.log("responseData:", responseData);
+    // console.log("responseData:", responseData);
 
     if (!res.ok) {
       throw new Error(responseData.message || 'Profile update failed');

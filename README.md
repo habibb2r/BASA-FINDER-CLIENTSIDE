@@ -143,7 +143,7 @@ src/
 ```bash
 npm run dev         # Run development server
 npm run build       # Build for production
-npm run lint        # Lint code with ESLint
+npm run lint        # Run ESLint
 npm run format      # Format code with Prettier
 ```
 
